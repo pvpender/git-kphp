@@ -17,6 +17,5 @@
 		"psr-4": {"CzProject\\GitPhp\\": "src/"}
 	},
 	"require-dev": {
-		"nette/tester": "^2.0"
 	}
 }
