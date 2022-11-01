@@ -83,7 +83,7 @@
 		 */
 		public function getOutputLastLine()
 		{
-			$lastLine = end($this->output);
+			$lastLine = array_last_value($this->output);
 			return is_string($lastLine) ? $lastLine : NULL;
 		}
 
