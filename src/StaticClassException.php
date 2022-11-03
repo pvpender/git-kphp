@@ -1,6 +1,6 @@
 <?php
 
-	namespace CzProject\GitPhp;
+	namespace pvpender\GitPhp;
 
 
 	class StaticClassException extends \Exception

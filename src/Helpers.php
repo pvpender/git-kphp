@@ -1,11 +1,14 @@
 <?php
 
-	namespace CzProject\GitPhp;
+	namespace pvpender\GitPhp;
 
 
 	class Helpers
 	{
-		public function __construct()
+        /**
+         * @throws StaticClassException
+         */
+        public function __construct()
 		{
 			throw new StaticClassException('This is static class.');
 		}
@@ -26,7 +29,7 @@
 
 		/**
 		 * @param  string $url  /path/to/repo.git | host.xz:foo/.git | ...
-		 * @return string  repo | foo | ...
+		 * @return string|false  repo | foo | ...
 		 */
 		public static function extractRepositoryNameFromUrl($url)
 		{

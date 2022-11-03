@@ -1,6 +1,6 @@
 <?php
 
-	namespace CzProject\GitPhp;
+	namespace pvpender\GitPhp;
 
 
 	class RunnerResult
@@ -26,8 +26,8 @@
 		 */
 		public function __construct($command, $exitCode, array $output, array $errorOutput)
 		{
-			$this->command = (string) $command;
-			$this->exitCode = (int) $exitCode;
+			$this->command = $command;
+			$this->exitCode = $exitCode;
 			$this->output = $output;
 			$this->errorOutput = $errorOutput;
 		}
@@ -79,7 +79,7 @@
 
 
 		/**
-		 * @return string|NULL
+		 * @return ?string
 		 */
 		public function getOutputLastLine()
 		{

@@ -1,10 +1,10 @@
 <?php
 
-namespace CzProject\GitPhp;
+namespace pvpender\GitPhp;
 
 class GitException extends \Exception
 	{
-		/** @var RunnerResult|NULL */
+		/** @var ?RunnerResult */
 		private $runnerResult;
 
 
@@ -20,7 +20,7 @@ class GitException extends \Exception
 
 
 		/**
-		 * @return RunnerResult|NULL
+		 * @return ?RunnerResult
 		 */
 		public function getRunnerResult()
 		{

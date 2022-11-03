@@ -1,6 +1,6 @@
 <?php
 
-	namespace CzProject\GitPhp; 
+	namespace pvpender\GitPhp;
 
 	class CommitId
 	{
@@ -8,13 +8,15 @@
 		private $id;
 
 
-		/**
-		 * @param string $id
-		 */
+        /**
+         * @param string $id
+         * @throws InvalidArgumentException
+         */
 		public function __construct($id)
 		{
 			if (!self::isValid($id)) {
-				throw new InvalidArgumentException("Invalid commit ID" . (is_string($id) ? " '$id'." : ', expected string, ' . gettype($id) . ' given.'));
+				throw new InvalidArgumentException("Invalid commit ID" . (is_string($id) ?
+                        " '$id'." : ', expected string, ' . gettype($id) . ' given.'));
 			}
 
 			$this->id = $id;

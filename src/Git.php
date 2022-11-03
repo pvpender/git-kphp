@@ -1,6 +1,6 @@
 <?php
 
-	namespace CzProject\GitPhp;
+	namespace pvpender\GitPhp;
 
 
 	class Git
@@ -15,10 +15,11 @@
 		}
 
 
-		/**
-		 * @param  string $directory
-		 * @return GitRepository
-		 */
+        /**
+         * @param  string $directory
+         * @return GitRepository
+         * @throws GitException
+         */
 		public function open($directory)
 		{
 			return new GitRepository($directory, $this->runner);
@@ -28,7 +29,7 @@
 		/**
 		 * Init repo in directory
 		 * @param  string $directory
-		 * @param  array<mixed>|NULL $params
+		 * @param  ?mixed[] $params
 		 * @return GitRepository
 		 * @throws GitException
 		 */
@@ -58,14 +59,15 @@
 		}
 
 
-		/**
-		 * Clones GIT repository from $url into $directory
-		 * @param  string $url
-		 * @param  string|NULL $directory
-		 * @param  array<mixed>|NULL $params
-		 * @return GitRepository
-		 * @throws GitException
-		 */
+        /**
+         * Clones GIT repository from $url into $directory
+         * @param  string $url
+         * @param  ?string $directory
+         * @param  ?mixed[] $params
+         * @return GitRepository
+         * @throws GitException
+         * @throws InvalidStateException
+         */
 		public function cloneRepository($url, $directory = NULL, array $params = NULL)
 		{
 			if ($directory !== NULL && is_dir("$directory/.git")) {
@@ -110,11 +112,13 @@
 		}
 
 
-		/**
-		 * @param  string $url
-		 * @param  array<string>|NULL $refs
-		 * @return bool
-		 */
+        /**
+         * @param  string $url
+         * @param  ?string[] $refs
+         * @return bool
+         * @throws GitException
+         * @throws InvalidStateException
+         */
 		public function isRemoteUrlReadable($url, array $refs = NULL)
 		{
 			$result = $this->runner->run($this->runner->getCwd(), [
@@ -133,19 +137,21 @@
 		}
 
 
-		/**
-		 * @param  string $cwd
-		 * @param  array<mixed> $args
-		 * @param  array<string, scalar> $env
-		 * @return RunnerResult
-		 * @throws GitException
-		 */
+        /**
+         * @param  string $cwd
+         * @param  mixed[] $args
+         * @param  tuple(string, string) $env
+         * @return RunnerResult
+         * @throws GitException
+         * @throws InvalidStateException
+         */
 		private function run($cwd, array $args, array $env = NULL)
 		{
 			$result = $this->runner->run($cwd, $args, $env);
 
 			if (!$result->isOk()) {
-				throw new GitException("Command '{$result->getCommand()}' failed (exit-code {$result->getExitCode()}).", $result->getExitCode(), NULL, $result);
+				throw new GitException("Command '{$result->getCommand()}' failed (exit-code 
+				{$result->getExitCode()}).", $result->getExitCode(), NULL, $result);
 			}
 
 			return $result;
