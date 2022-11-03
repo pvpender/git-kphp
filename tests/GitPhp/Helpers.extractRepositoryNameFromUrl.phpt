@@ -1,7 +1,7 @@
 <?php
 
 use Tester\Assert;
-use CzProject\GitPhp\Helpers;
+use pvpender\GitPhp\Helpers;
 
 require __DIR__ . '/bootstrap.php';
 

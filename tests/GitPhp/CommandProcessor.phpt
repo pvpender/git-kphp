@@ -1,10 +1,10 @@
 <?php
 
 use Tester\Assert;
-use CzProject\GitPhp\CommandProcessor;
-use CzProject\GitPhp\CommitId;
-use CzProject\GitPhp\InvalidArgumentException;
-use CzProject\GitPhp\InvalidStateException;
+use pvpender\GitPhp\CommandProcessor;
+use pvpender\GitPhp\CommitId;
+use pvpender\GitPhp\InvalidArgumentException;
+use pvpender\GitPhp\InvalidStateException;
 
 require __DIR__ . '/bootstrap.php';
 
