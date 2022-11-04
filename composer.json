@@ -11,10 +11,11 @@
 		}
 	],
 	"require": {
-		"php": ">=5.6.0"
+		"php": ">=7.4"
 	},
 	"autoload": {
-		"psr-4": {"CzProject\\GitPhp\\": "src/"}
+		"psr-4": {
+			"pvpender\\GitPhp\\": "src/"}
 	},
 	"require-dev": {
 	}
