@@ -1,17 +1,22 @@
 <?php
 
+use pvpender\GitPhp\GitException;
+
 require __DIR__ . '/../../vendor/autoload.php';
 require __DIR__ . '/../libs/AssertRunner.php';
 
 Tester\Environment::setup();
 
 
-function test($cb)
+/**
+ * @throws GitException
+ */
+function test(string $cb)
 {
 	try {
 		$cb();
 
-	} catch (CzProject\GitPhp\GitException $e) {
+	} catch (pvpender\GitPhp\GitException $e) {
 		$result = $e->getRunnerResult();
 
 		if ($result !== NULL) {
