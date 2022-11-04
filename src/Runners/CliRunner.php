@@ -1,37 +1,34 @@
 <?php
 
-	namespace CzProject\GitPhp\Runners;
+	namespace pvpender\GitPhp\Runners;
 
-	use CzProject\GitPhp\CommandProcessor;
-	use CzProject\GitPhp\GitException;
-	use CzProject\GitPhp\IRunner;
-	use CzProject\GitPhp\RunnerResult;
+	use pvpender\GitPhp\CommandProcessor;
+	use pvpender\GitPhp\GitException;
+    use pvpender\GitPhp\InvalidStateException;
+    use pvpender\GitPhp\IRunner;
+	use pvpender\GitPhp\RunnerResult;
 
 
 	class CliRunner implements IRunner
 	{
-		/** @var string */
-		private $gitBinary;
+        private string $gitBinary;
 
-		/** @var CommandProcessor */
-		private $commandProcessor;
+        private CommandProcessor $commandProcessor;
 
 
-		/**
-		 * @param  string $gitBinary
-		 */
-		public function __construct($gitBinary = 'git')
+        public function __construct(string $gitBinary = 'git')
 		{
 			$this->gitBinary = $gitBinary;
 			$this->commandProcessor = new CommandProcessor;
 		}
 
 
-		/**
-		 * @return RunnerResult
-		 */
-		public function run($cwd, array $args, array $env = NULL)
-		{
+        /**
+         * @throws GitException
+         * @throws InvalidStateException
+         */
+		public function run($cwd, array $args, array $env = NULL): RunnerResult
+        {
 			if (!is_dir($cwd)) {
 				throw new GitException("Directory '$cwd' not found");
 			}
@@ -84,15 +81,15 @@
 		}
 
 
-		/**
-		 * @return string
-		 */
-		public function getCwd()
-		{
+        /**
+         * @throws InvalidStateException
+         */
+		public function getCwd(): string
+        {
 			$cwd = getcwd();
 
 			if (!is_string($cwd)) {
-				throw new \CzProject\GitPhp\InvalidStateException('Getting of CWD failed.');
+				throw new \pvpender\GitPhp\InvalidStateException('Getting of CWD failed.');
 			}
 
 			return $cwd;
@@ -100,10 +97,9 @@
 
 
 		/**
-		 * @param  string $output
-		 * @return string[]
+         * @return string[]
 		 */
-		protected function convertOutput($output)
+		protected function convertOutput(string $output)
 		{
 			$output = str_replace(["\r\n", "\r"], "\n", $output);
 			$output = rtrim($output, "\n");

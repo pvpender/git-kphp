@@ -1,71 +1,65 @@
 <?php
 
-	namespace CzProject\GitPhp\Runners;
+	namespace pvpender\GitPhp\Runners;
 
-	use CzProject\GitPhp\CommandProcessor;
-	use CzProject\GitPhp\GitException;
-	use CzProject\GitPhp\IRunner;
-	use CzProject\GitPhp\RunnerResult;
+	use pvpender\GitPhp\CommandProcessor;
+	use pvpender\GitPhp\GitException;
+    use pvpender\GitPhp\InvalidStateException;
+    use pvpender\GitPhp\IRunner;
+	use pvpender\GitPhp\RunnerResult;
 
 
 	class MemoryRunner implements IRunner
 	{
-		/** @var string */
-		private $cwd;
+        private string $cwd;
 
-		/** @var CommandProcessor */
-		private $commandProcessor;
+        private CommandProcessor $commandProcessor;
 
-		/** @var array<string, RunnerResult>  [command => RunnerResult] */
+		/** @var tuple(string, RunnerResult)  [command => RunnerResult] */
 		private $results = [];
 
 
-		/**
-		 * @param  string $cwd
-		 */
-		public function __construct($cwd)
+        public function __construct(string $cwd)
 		{
 			$this->cwd = $cwd;
 			$this->commandProcessor = new CommandProcessor;
 		}
 
 
-		/**
-		 * @param  array<mixed> $args
-		 * @param  array<string, scalar> $env
-		 * @param  array<string> $output
-		 * @param  array<string> $errorOutput
-		 * @param  int $exitCode
-		 * @return self
-		 */
-		public function setResult(array $args, array $env, array $output, array $errorOutput = [], $exitCode = 0)
-		{
+        /**
+         * @param  mixed[] $args
+         * @param  tuple(string, string) $env
+         * @param  string[] $output
+         * @param  string[] $errorOutput
+         * @throws InvalidStateException
+         */
+		public function setResult(array $args, array $env, array $output, array $errorOutput = [], int $exitCode = 0): MemoryRunner
+        {
 			$cmd = $this->commandProcessor->process('git', $args, $env);
 			$this->results[$cmd] = new RunnerResult($cmd, $exitCode, $output, $errorOutput);
 			return $this;
 		}
 
 
-		/**
-		 * @return RunnerResult
-		 */
-		public function run($cwd, array $args, array $env = NULL)
-		{
+        /**
+         * @param  mixed[] $args
+         * @param  ?tuple(string, string) $env
+         * @throws InvalidStateException
+         */
+		public function run($cwd, array $args, array $env = NULL): RunnerResult
+        {
 			$cmd = $this->commandProcessor->process('git', $args, $env);
 
 			if (!isset($this->results[$cmd])) {
-				throw new \CzProject\GitPhp\InvalidStateException("Missing result for command '$cmd'.");
+				throw new \pvpender\GitPhp\InvalidStateException("Missing result for command '$cmd'.");
 			}
 
 			return $this->results[$cmd];
 		}
 
 
-		/**
-		 * @return string
-		 */
-		public function getCwd()
-		{
+        public function getCwd(): string
+        {
 			return $this->cwd;
 		}
 	}
