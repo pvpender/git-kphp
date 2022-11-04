@@ -11,7 +11,7 @@ function test($cb)
 	try {
 		$cb();
 
-	} catch (pvpender\GitPhp\GitException $e) {
+	} catch (CzProject\GitPhp\GitException $e) {
 		$result = $e->getRunnerResult();
 
 		if ($result !== NULL) {
