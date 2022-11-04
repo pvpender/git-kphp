@@ -1,12 +1,11 @@
 <?php
 
-	namespace pvpender\GitPhp\Runners;
+	namespace CzProject\GitPhp\Runners;
 
-	use pvpender\GitPhp\CommandProcessor;
-	use pvpender\GitPhp\GitException;
-    use pvpender\GitPhp\InvalidStateException;
-    use pvpender\GitPhp\IRunner;
-	use pvpender\GitPhp\RunnerResult;
+	use CzProject\GitPhp\CommandProcessor;
+	use CzProject\GitPhp\GitException;
+	use CzProject\GitPhp\IRunner;
+	use CzProject\GitPhp\RunnerResult;
 
 
 	class CliRunner implements IRunner
@@ -28,11 +27,9 @@
 		}
 
 
-        /**
-         * @return RunnerResult
-         * @throws GitException
-         * @throws InvalidStateException
-         */
+		/**
+		 * @return RunnerResult
+		 */
 		public function run($cwd, array $args, array $env = NULL)
 		{
 			if (!is_dir($cwd)) {
@@ -87,16 +84,15 @@
 		}
 
 
-        /**
-         * @return string
-         * @throws InvalidStateException
-         */
+		/**
+		 * @return string
+		 */
 		public function getCwd()
 		{
 			$cwd = getcwd();
 
 			if (!is_string($cwd)) {
-				throw new \pvpender\GitPhp\InvalidStateException('Getting of CWD failed.');
+				throw new \CzProject\GitPhp\InvalidStateException('Getting of CWD failed.');
 			}
 
 			return $cwd;
