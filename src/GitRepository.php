@@ -1,6 +1,6 @@
 <?php
 
-	namespace pvpender\GitPhp;
+	namespace CzProject\GitPhp;
 
 
 	class GitRepository
@@ -42,15 +42,14 @@
 		}
 
 
-        /**
-         * Creates a tag.
-         * `git tag <name>`
-         * @param  string $name
-         * @param  ?mixed[] $options
-         * @return static
-         * @throws InvalidStateException
-         * @throws GitException
-         */
+		/**
+		 * Creates a tag.
+		 * `git tag <name>`
+		 * @param  string $name
+		 * @param  array<mixed>|NULL $options
+		 * @throws GitException
+		 * @return static
+		 */
 		public function createTag($name, $options = NULL)
 		{
 			$this->run('tag', $options, '--end-of-options', $name);
@@ -58,14 +57,13 @@
 		}
 
 
-        /**
-         * Removes tag.
-         * `git tag -d <name>`
-         * @param  string $name
-         * @return static
-         * @throws InvalidStateException
-         * @throws GitException
-         */
+		/**
+		 * Removes tag.
+		 * `git tag -d <name>`
+		 * @param  string $name
+		 * @throws GitException
+		 * @return static
+		 */
 		public function removeTag($name)
 		{
 			$this->run('tag', [
@@ -75,16 +73,15 @@
 		}
 
 
-        /**
-         * Renames tag.
-         * `git tag <new> <old>`
-         * `git tag -d <old>`
-         * @param  string $oldName
-         * @param  string $newName
-         * @return static
-         * @throws InvalidStateException
-         * @throws GitException
-         */
+		/**
+		 * Renames tag.
+		 * `git tag <new> <old>`
+		 * `git tag -d <old>`
+		 * @param  string $oldName
+		 * @param  string $newName
+		 * @throws GitException
+		 * @return static
+		 */
 		public function renameTag($oldName, $newName)
 		{
 			// http://stackoverflow.com/a/1873932
@@ -96,27 +93,25 @@
 		}
 
 
-        /**
-         * Returns list of tags in repo.
-         * @return ?string[] NULL => no tags
-         * @throws GitException
-         * @throws InvalidStateException
-         */
+		/**
+		 * Returns list of tags in repo.
+		 * @return string[]|NULL  NULL => no tags
+		 * @throws GitException
+		 */
 		public function getTags()
 		{
 			return $this->extractFromCommand(['tag'], 'trim');
 		}
 
 
-        /**
-         * Merges branches.
-         * `git merge <options> <name>`
-         * @param  string $branch
-         * @param  ?mixed[] $options
-         * @return static
-         * @throws InvalidStateException
-         * @throws GitException
-         */
+		/**
+		 * Merges branches.
+		 * `git merge <options> <name>`
+		 * @param  string $branch
+		 * @param  array<mixed>|NULL $options
+		 * @throws GitException
+		 * @return static
+		 */
 		public function merge($branch, $options = NULL)
 		{
 			$this->run('merge', $options, '--end-of-options', $branch);
@@ -124,17 +119,15 @@
 		}
 
 
-        /**
-         * Creates new branch.
-         * `git branch <name>`
-         * (optionaly) `git checkout <name>`
-         * @param  string $name
-         * @param  bool $checkout
-         * @return static
-         * @throws InvalidArgumentException
-         * @throws GitException
-         * @throws InvalidStateException
-         */
+		/**
+		 * Creates new branch.
+		 * `git branch <name>`
+		 * (optionaly) `git checkout <name>`
+		 * @param  string $name
+		 * @param  bool $checkout
+		 * @throws GitException
+		 * @return static
+		 */
 		public function createBranch($name, $checkout = FALSE)
 		{
 			// git branch $name
@@ -148,14 +141,13 @@
 		}
 
 
-        /**
-         * Removes branch.
-         * `git branch -d <name>`
-         * @param  string $name
-         * @return static
-         * @throws InvalidStateException
-         * @throws GitException
-         */
+		/**
+		 * Removes branch.
+		 * `git branch -d <name>`
+		 * @param  string $name
+		 * @throws GitException
+		 * @return static
+		 */
 		public function removeBranch($name)
 		{
 			$this->run('branch', [
@@ -163,7 +155,6 @@
 			]);
 			return $this;
 		}
-
 
 
 		/**
@@ -189,19 +180,17 @@
 
 			} catch (GitException $e) {
 				// nothing
-			} catch (InvalidStateException $e) {
-            }
+			}
 
-            throw new GitException('Getting of current branch name failed.');
+			throw new GitException('Getting of current branch name failed.');
 		}
 
 
-        /**
-         * Returns list of all (local & remote) branches in repo.
-         * @return ?string[]  NULL => no branches
-         * @throws GitException
-         * @throws InvalidStateException
-         */
+		/**
+		 * Returns list of all (local & remote) branches in repo.
+		 * @return string[]|NULL  NULL => no branches
+		 * @throws GitException
+		 */
 		public function getBranches()
 		{
 			return $this->extractFromCommand(['branch', '-a', '--no-color'], function($value) {
@@ -210,12 +199,11 @@
 		}
 
 
-        /**
-         * Returns list of remote branches in repo.
-         * @return ?string[]  NULL => no branches
-         * @throws GitException
-         * @throws InvalidStateException
-         */
+		/**
+		 * Returns list of remote branches in repo.
+		 * @return string[]|NULL  NULL => no branches
+		 * @throws GitException
+		 */
 		public function getRemoteBranches()
 		{
 			return $this->extractFromCommand(['branch', '-r', '--no-color'], function($value) {
@@ -224,12 +212,11 @@
 		}
 
 
-        /**
-         * Returns list of local branches in repo.
-         * @return ?string[]  NULL => no branches
-         * @throws GitException
-         * @throws InvalidStateException
-         */
+		/**
+		 * Returns list of local branches in repo.
+		 * @return string[]|NULL  NULL => no branches
+		 * @throws GitException
+		 */
 		public function getLocalBranches()
 		{
 			return $this->extractFromCommand(['branch', '--no-color'], function($value) {
@@ -238,15 +225,13 @@
 		}
 
 
-        /**
-         * Checkout branch.
-         * `git checkout <branch>`
-         * @param  string $name
-         * @return static
-         * @throws InvalidArgumentException
-         * @throws GitException
-         * @throws InvalidStateException
-         */
+		/**
+		 * Checkout branch.
+		 * `git checkout <branch>`
+		 * @param  string $name
+		 * @throws GitException
+		 * @return static
+		 */
 		public function checkout($name)
 		{
 			if (!is_string($name)) {
@@ -266,14 +251,13 @@
 		}
 
 
-        /**
-         * Removes file(s).
-         * `git rm <file>`
-         * @param  string|string[] $file
-         * @return static
-         * @throws InvalidStateException
-         * @throws GitException
-         */
+		/**
+		 * Removes file(s).
+		 * `git rm <file>`
+		 * @param  string|string[] $file
+		 * @throws GitException
+		 * @return static
+		 */
 		public function removeFile($file)
 		{
 			if (!is_array($file)) {
@@ -288,14 +272,13 @@
 		}
 
 
-        /**
-         * Adds file(s).
-         * `git add <file>`
-         * @param  string|string[] $file
-         * @return static
-         * @throws InvalidStateException
-         * @throws GitException
-         */
+		/**
+		 * Adds file(s).
+		 * `git add <file>`
+		 * @param  string|string[] $file
+		 * @throws GitException
+		 * @return static
+		 */
 		public function addFile($file)
 		{
 			if (!is_array($file)) {
@@ -318,13 +301,12 @@
 		}
 
 
-        /**
-         * Adds all created, modified & removed files.
-         * `git add --all`
-         * @return static
-         * @throws InvalidStateException
-         * @throws GitException
-         */
+		/**
+		 * Adds all created, modified & removed files.
+		 * `git add --all`
+		 * @throws GitException
+		 * @return static
+		 */
 		public function addAllChanges()
 		{
 			$this->run('add', '--all');
@@ -332,15 +314,14 @@
 		}
 
 
-        /**
-         * Renames file(s).
-         * `git mv <file>`
-         * @param  string|string[] $file from: array('from' => 'to', ...) || (from, to)
-         * @param  ?string $to
-         * @return static
-         * @throws InvalidStateException
-         * @throws GitException
-         */
+		/**
+		 * Renames file(s).
+		 * `git mv <file>`
+		 * @param  string|string[] $file  from: array('from' => 'to', ...) || (from, to)
+		 * @param  string|NULL $to
+		 * @throws GitException
+		 * @return static
+		 */
 		public function renameFile($file, $to = NULL)
 		{
 			if (!is_array($file)) { // rename(file, to);
@@ -357,15 +338,14 @@
 		}
 
 
-        /**
-         * Commits changes
-         * `git commit <params> -m <message>`
-         * @param  string $message
-         * @param  ?mixed[] $options
-         * @return static
-         * @throws InvalidStateException
-         * @throws GitException
-         */
+		/**
+		 * Commits changes
+		 * `git commit <params> -m <message>`
+		 * @param  string $message
+		 * @param  array<mixed>|NULL $options
+		 * @throws GitException
+		 * @return static
+		 */
 		public function commit($message, $options = NULL)
 		{
 			$this->run('commit', $options, [
@@ -375,14 +355,12 @@
 		}
 
 
-        /**
-         * Returns last commit ID on current branch
-         * `git log --pretty=format:"%H" -n 1`
-         * @return CommitId
-         * @throws GitException
-         * @throws InvalidArgumentException
-         * @throws InvalidStateException
-         */
+		/**
+		 * Returns last commit ID on current branch
+		 * `git log --pretty=format:"%H" -n 1`
+		 * @return CommitId
+		 * @throws GitException
+		 */
 		public function getLastCommitId()
 		{
 			$result = $this->run('log', '--pretty=format:%H', '-n', '1');
@@ -391,25 +369,19 @@
 		}
 
 
-        /**
-         * @return Commit
-         * @throws GitException
-         * @throws InvalidArgumentException
-         * @throws InvalidStateException
-         */
+		/**
+		 * @return Commit
+		 */
 		public function getLastCommit()
 		{
 			return $this->getCommit($this->getLastCommitId());
 		}
 
 
-        /**
-         * @param  string|CommitId $commitId
-         * @return Commit
-         * @throws InvalidArgumentException
-         * @throws GitException
-         * @throws InvalidStateException
-         */
+		/**
+		 * @param  string|CommitId $commitId
+		 * @return Commit
+		 */
 		public function getCommit($commitId)
 		{
 			if (!($commitId instanceof CommitId)) {
@@ -470,13 +442,12 @@
 		}
 
 
-        /**
-         * Exists changes?
-         * `git status` + magic
-         * @return bool
-         * @throws GitException
-         * @throws InvalidStateException
-         */
+		/**
+		 * Exists changes?
+		 * `git status` + magic
+		 * @return bool
+		 * @throws GitException
+		 */
 		public function hasChanges()
 		{
 			// Make sure the `git status` gets a refreshed look at the working tree.
@@ -486,14 +457,13 @@
 		}
 
 
-        /**
-         * Pull changes from a remote
-         * @param  string|string[]|null $remote
-         * @param  ?mixed[] $options
-         * @return static
-         * @throws GitException
-         * @throws InvalidStateException
-         */
+		/**
+		 * Pull changes from a remote
+		 * @param  string|string[]|NULL $remote
+		 * @param  array<mixed>|NULL $options
+		 * @return static
+		 * @throws GitException
+		 */
 		public function pull($remote = NULL, array $options = NULL)
 		{
 			$this->run('pull', $options, '--end-of-options', $remote);
@@ -501,14 +471,13 @@
 		}
 
 
-        /**
-         * Push changes to a remote
-         * @param  string|string[]|null $remote
-         * @param  ?mixed[] $options
-         * @return static
-         * @throws GitException
-         * @throws InvalidStateException
-         */
+		/**
+		 * Push changes to a remote
+		 * @param  string|string[]|NULL $remote
+		 * @param  array<mixed>|NULL $options
+		 * @return static
+		 * @throws GitException
+		 */
 		public function push($remote = NULL, array $options = NULL)
 		{
 			$this->run('push', $options, '--end-of-options', $remote);
@@ -516,14 +485,13 @@
 		}
 
 
-        /**
-         * Run fetch command to get latest branches
-         * @param  string|string[]|null $remote
-         * @param  ?mixed[] $options
-         * @return static
-         * @throws GitException
-         * @throws InvalidStateException
-         */
+		/**
+		 * Run fetch command to get latest branches
+		 * @param  string|string[]|NULL $remote
+		 * @param  array<mixed>|NULL $options
+		 * @return static
+		 * @throws GitException
+		 */
 		public function fetch($remote = NULL, array $options = NULL)
 		{
 			$this->run('fetch', $options, '--end-of-options', $remote);
@@ -531,15 +499,14 @@
 		}
 
 
-        /**
-         * Adds new remote repository
-         * @param  string $name
-         * @param  string $url
-         * @param  ?mixed[] $options
-         * @return static
-         * @throws GitException
-         * @throws InvalidStateException
-         */
+		/**
+		 * Adds new remote repository
+		 * @param  string $name
+		 * @param  string $url
+		 * @param  array<mixed>|NULL $options
+		 * @return static
+		 * @throws GitException
+		 */
 		public function addRemote($name, $url, array $options = NULL)
 		{
 			$this->run('remote', 'add', $options, '--end-of-options', $name, $url);
@@ -547,14 +514,13 @@
 		}
 
 
-        /**
-         * Renames remote repository
-         * @param  string $oldName
-         * @param  string $newName
-         * @return static
-         * @throws GitException
-         * @throws InvalidStateException
-         */
+		/**
+		 * Renames remote repository
+		 * @param  string $oldName
+		 * @param  string $newName
+		 * @return static
+		 * @throws GitException
+		 */
 		public function renameRemote($oldName, $newName)
 		{
 			$this->run('remote', 'rename', '--end-of-options', $oldName, $newName);
@@ -562,13 +528,12 @@
 		}
 
 
-        /**
-         * Removes remote repository
-         * @param  string $name
-         * @return static
-         * @throws GitException
-         * @throws InvalidStateException
-         */
+		/**
+		 * Removes remote repository
+		 * @param  string $name
+		 * @return static
+		 * @throws GitException
+		 */
 		public function removeRemote($name)
 		{
 			$this->run('remote', 'remove', '--end-of-options', $name);
@@ -576,15 +541,14 @@
 		}
 
 
-        /**
-         * Changes remote repository URL
-         * @param  string $name
-         * @param  string $url
-         * @param  ?mixed[] $options
-         * @return static
-         * @throws GitException
-         * @throws InvalidStateException
-         */
+		/**
+		 * Changes remote repository URL
+		 * @param  string $name
+		 * @param  string $url
+		 * @param  array<mixed>|NULL $options
+		 * @return static
+		 * @throws GitException
+		 */
 		public function setRemoteUrl($name, $url, array $options = NULL)
 		{
 			$this->run('remote', 'set-url', $options, '--end-of-options', $name, $url);
@@ -592,12 +556,11 @@
 		}
 
 
-        /**
-         * @param  mixed ...$cmd
-         * @return string[]  returns output
-         * @throws GitException
-         * @throws InvalidStateException
-         */
+		/**
+		 * @param  mixed ...$cmd
+		 * @return string[]  returns output
+		 * @throws GitException
+		 */
 		public function execute(...$cmd)
 		{
 			$result = $this->run(...$cmd);
@@ -605,12 +568,11 @@
 		}
 
 
-        /**
-         * @param  mixed[] $args
-         * @return ?string[]
-         * @throws GitException
-         * @throws InvalidStateException
-         */
+		/**
+		 * @param  array<mixed> $args
+		 * @return string[]|NULL
+		 * @throws GitException
+		 */
 		protected function extractFromCommand(array $args, callable $filter = NULL)
 		{
 			$result = $this->run(...$args);
@@ -633,27 +595,25 @@
 			}
 
 			if (empty($output)) {
-				return null;
+				return NULL;
 			}
 
 			return $output;
 		}
 
 
-        /**
-         * Runs command.
-         * @param  mixed ...$args
-         * @return RunnerResult
-         * @throws GitException
-         * @throws InvalidStateException
-         */
+		/**
+		 * Runs command.
+		 * @param  mixed ...$args
+		 * @return RunnerResult
+		 * @throws GitException
+		 */
 		protected function run(...$args)
 		{
 			$result = $this->runner->run($this->repository, $args);
 
 			if (!$result->isOk()) {
-				throw new GitException("Command '{$result->getCommand()}' failed (exit-code 
-				{$result->getExitCode()}).", $result->getExitCode(), NULL, $result);
+				throw new GitException("Command '{$result->getCommand()}' failed (exit-code {$result->getExitCode()}).", $result->getExitCode(), NULL, $result);
 			}
 
 			return $result;

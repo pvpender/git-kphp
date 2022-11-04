@@ -1,14 +1,14 @@
 <?php
 
-	namespace pvpender\GitPhp;
+	namespace CzProject\GitPhp;
 
 
 	interface IRunner
 	{
 		/**
 		 * @param  string $cwd
-		 * @param  mixed[] $args
-         * @param ?tuple(string, string) $env
+		 * @param  array<mixed> $args
+		 * @param  array<string, scalar>|NULL $env
 		 * @return RunnerResult
 		 */
 		function run($cwd, array $args, array $env = NULL);

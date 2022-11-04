@@ -2,7 +2,7 @@
 
 	
 
-namespace pvpender\GitPhp;
+namespace CzProject\GitPhp;
 
 
 class InvalidArgumentException extends \Exception

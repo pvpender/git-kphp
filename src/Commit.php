@@ -1,6 +1,6 @@
 <?php
 
-	namespace pvpender\GitPhp;
+	namespace CzProject\GitPhp;
 
 
 	class Commit
@@ -11,13 +11,13 @@
 		/** @var string */
 		private $subject;
 
-		/** @var ?string */
+		/** @var string|NULL */
 		private $body;
 
 		/** @var string */
 		private $authorEmail;
 
-		/** @var ?string */
+		/** @var string|NULL */
 		private $authorName;
 
 		/** @var \DateTimeImmutable */
@@ -26,7 +26,7 @@
 		/** @var string */
 		private $committerEmail;
 
-		/** @var ?string */
+		/** @var string|NULL */
 		private $committerName;
 
 		/** @var \DateTimeImmutable */
@@ -35,11 +35,11 @@
 
 		/**
 		 * @param string $subject
-		 * @param ?string $body
+		 * @param string|NULL $body
 		 * @param string $authorEmail
-		 * @param ?string $authorName
+		 * @param string|NULL $authorName
 		 * @param string $committerEmail
-		 * @param ?string $committerName
+		 * @param string|NULL $committerName
 		 */
 		public function __construct(
 			CommitId $id,
@@ -84,7 +84,7 @@
 
 
 		/**
-		 * @return ?string
+		 * @return string|NULL
 		 */
 		public function getBody()
 		{
@@ -93,7 +93,7 @@
 
 
 		/**
-		 * @return ?string
+		 * @return string|NULL
 		 */
 		public function getAuthorName()
 		{
@@ -120,7 +120,7 @@
 
 
 		/**
-		 * @return ?string
+		 * @return string|NULL
 		 */
 		public function getCommitterName()
 		{

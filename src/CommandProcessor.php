@@ -1,6 +1,6 @@
 <?php
 
-	namespace pvpender\GitPhp;
+	namespace CzProject\GitPhp;
 
 
 	class CommandProcessor
@@ -13,10 +13,9 @@
 		private $isWindows;
 
 
-        /**
-         * @param int $mode
-         * @throws InvalidArgumentException
-         */
+		/**
+		 * @param int $mode
+		 */
 		public function __construct($mode = self::MODE_DETECT)
 		{
 			if ($mode === self::MODE_NON_WINDOWS) {
@@ -34,13 +33,12 @@
 		}
 
 
-        /**
-         * @param  string $app
-         * @param  mixed[] $args
-         * @param  ?tuple(string, string) $env
-         * @return string
-         * @throws InvalidStateException
-         */
+		/**
+		 * @param  string $app
+		 * @param  array<mixed> $args
+		 * @param  array<string, scalar>|NULL $env
+		 * @return string
+		 */
 		public function process($app, array $args, array $env = NULL)
 		{
 			$cmd = [];
@@ -65,8 +63,7 @@
 							continue;
 
 						} elseif (!is_scalar($value)) {
-							throw new InvalidStateException('Unknow option value type ' . (is_object($value) ?
-                                    get_class($value) : gettype($value)) . '.');
+							throw new InvalidStateException('Unknow option value type ' . (is_object($value) ? get_class($value) : gettype($value)) . '.');
 						}
 
 						$cmd[] = $_c . $this->escapeArgument((string) $value);
@@ -82,8 +79,7 @@
 					$cmd[] = $arg->toString();
 
 				} else {
-					throw new InvalidStateException('Unknow argument type ' . (is_object($arg) ?
-                            get_class($arg) : gettype($arg)) . '.');
+					throw new InvalidStateException('Unknow argument type ' . (is_object($arg) ? get_class($arg) : gettype($arg)) . '.');
 				}
 			}
 
