@@ -18,5 +18,8 @@
 			"pvpender\\GitPhp\\": "src/"}
 	},
 	"require-dev": {
+		"vkcom/ktest-script": "^0.7.5",
+		"vkcom/kphpunit": "dev-master",
+		"phpunit/phpunit": "^9.5"
 	}
 }

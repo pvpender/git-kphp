@@ -3,7 +3,10 @@
 	namespace pvpender\GitPhp;
 
 
-	class GitRepository
+	use DateTimeImmutable;
+    use DateTimeInterface;
+
+    class GitRepository
 	{
         protected string $repository;
 
@@ -402,9 +405,9 @@
 
 			// author date
 			$result = $this->run('log', '-1', $commitId, '--pretty=format:%ad', '--date=iso-strict');
-			$authorDate = \DateTimeImmutable::createFromFormat(\DateTime::ATOM, (string) $result->getOutputLastLine());
+			$authorDate = DateTimeImmutable::createFromFormat(DateTimeInterface::ATOM, (string) $result->getOutputLastLine());
 
-			if (!($authorDate instanceof \DateTimeImmutable)) {
+			if (!($authorDate instanceof DateTimeImmutable)) {
 				throw new GitException('Failed fetching of commit author date.', 0, NULL, $result);
 			}
 
@@ -418,9 +421,9 @@
 
 			// committer date
 			$result = $this->run('log', '-1', $commitId, '--pretty=format:%cd', '--date=iso-strict');
-			$committerDate = \DateTimeImmutable::createFromFormat(\DateTime::ATOM, (string) $result->getOutputLastLine());
+			$committerDate = DateTimeImmutable::createFromFormat(DateTimeInterface::ATOM, (string) $result->getOutputLastLine());
 
-			if (!($committerDate instanceof \DateTimeImmutable)) {
+			if (!($committerDate instanceof DateTimeImmutable)) {
 				throw new GitException('Failed fetching of commit committer date.', 0, NULL, $result);
 			}
 
