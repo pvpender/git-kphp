@@ -1,50 +1,40 @@
 <?php
 
-	namespace CzProject\GitPhp; 
+	namespace pvpender\GitPhp;
 
 	class CommitId
 	{
-		/** @var string */
-		private $id;
+        private string $id;
 
 
-		/**
-		 * @param string $id
-		 */
-		public function __construct($id)
+        /**
+         * @throws InvalidArgumentException
+         */
+		public function __construct(string $id)
 		{
 			if (!self::isValid($id)) {
-				throw new InvalidArgumentException("Invalid commit ID" . (is_string($id) ? " '$id'." : ', expected string, ' . gettype($id) . ' given.'));
+				throw new InvalidArgumentException("Invalid commit ID" . (is_string($id) ?
+                        " '$id'." : ', expected string, ' . gettype($id) . ' given.'));
 			}
 
 			$this->id = $id;
 		}
 
 
-		/**
-		 * @return string
-		 */
-		public function toString()
-		{
+        public function toString(): string
+        {
 			return $this->id;
 		}
 
 
-		/**
-		 * @return string
-		 */
-		public function __toString()
-		{
+        public function __toString(): string
+        {
 			return $this->id;
 		}
 
 
-		/**
-		 * @param  string $id
-		 * @return bool
-		 */
-		public static function isValid($id)
-		{
+        public static function isValid(string $id): bool
+        {
 			return is_string($id) && preg_match('/^[0-9a-f]{40}$/i', $id);
 		}
 	}

@@ -1,12 +1,11 @@
 <?php
 
-	namespace CzProject\GitPhp;
+	namespace pvpender\GitPhp;
 
 
 	class Git
 	{
-		/** @var IRunner */
-		protected $runner;
+        protected IRunner $runner;
 
 
 		public function  __construct(IRunner $runner = NULL)
@@ -15,25 +14,23 @@
 		}
 
 
-		/**
-		 * @param  string $directory
-		 * @return GitRepository
-		 */
-		public function open($directory)
-		{
+        /**
+         * @throws GitException
+         */
+		public function open(string $directory): GitRepository
+        {
 			return new GitRepository($directory, $this->runner);
 		}
 
 
-		/**
-		 * Init repo in directory
-		 * @param  string $directory
-		 * @param  array<mixed>|NULL $params
-		 * @return GitRepository
-		 * @throws GitException
-		 */
-		public function init($directory, array $params = NULL)
-		{
+        /**
+         * Init repo in directory
+         * @param  ?mixed[] $params
+         * @throws GitException
+         * @throws InvalidStateException
+         */
+		public function init(string $directory, array $params = NULL): GitRepository
+        {
 			if (is_dir("$directory/.git")) {
 				throw new GitException("Repo already exists in $directory.");
 			}
@@ -52,22 +49,22 @@
 
 			} catch (GitException $e) {
 				throw new GitException("Git init failed (directory $directory).", $e->getCode(), $e);
-			}
+			} catch (InvalidStateException $e) {
+                throw new InvalidStateException("Invalid state", $e->getCode(), $e);
+            }
 
-			return $this->open($directory);
+            return $this->open($directory);
 		}
 
 
-		/**
-		 * Clones GIT repository from $url into $directory
-		 * @param  string $url
-		 * @param  string|NULL $directory
-		 * @param  array<mixed>|NULL $params
-		 * @return GitRepository
-		 * @throws GitException
-		 */
-		public function cloneRepository($url, $directory = NULL, array $params = NULL)
-		{
+        /**
+         * Clones GIT repository from $url into $directory
+         * @param  ?mixed[] $params
+         * @throws GitException
+         * @throws InvalidStateException
+         */
+		public function cloneRepository(string $url, ?string $directory = NULL, array $params = NULL): GitRepository
+        {
 			if ($directory !== NULL && is_dir("$directory/.git")) {
 				throw new GitException("Repo already exists in $directory.");
 			}
@@ -110,13 +107,13 @@
 		}
 
 
-		/**
-		 * @param  string $url
-		 * @param  array<string>|NULL $refs
-		 * @return bool
-		 */
-		public function isRemoteUrlReadable($url, array $refs = NULL)
-		{
+        /**
+         * @param  ?string[] $refs
+         * @throws GitException
+         * @throws InvalidStateException
+         */
+		public function isRemoteUrlReadable(string $url, array $refs = NULL): bool
+        {
 			$result = $this->runner->run($this->runner->getCwd(), [
 				'ls-remote',
 				'--heads',
@@ -133,19 +130,19 @@
 		}
 
 
-		/**
-		 * @param  string $cwd
-		 * @param  array<mixed> $args
-		 * @param  array<string, scalar> $env
-		 * @return RunnerResult
-		 * @throws GitException
-		 */
-		private function run($cwd, array $args, array $env = NULL)
-		{
+        /**
+         * @param  mixed[] $args
+         * @param  tuple(string, string) $env
+         * @throws GitException
+         * @throws InvalidStateException
+         */
+		private function run(string $cwd, array $args, array $env = NULL): RunnerResult
+        {
 			$result = $this->runner->run($cwd, $args, $env);
 
 			if (!$result->isOk()) {
-				throw new GitException("Command '{$result->getCommand()}' failed (exit-code {$result->getExitCode()}).", $result->getExitCode(), NULL, $result);
+				throw new GitException("Command '{$result->getCommand()}' failed (exit-code 
+				{$result->getExitCode()}).", $result->getExitCode(), NULL, $result);
 			}
 
 			return $result;

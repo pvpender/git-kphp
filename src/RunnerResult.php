@@ -1,15 +1,13 @@
 <?php
 
-	namespace CzProject\GitPhp;
+	namespace pvpender\GitPhp;
 
 
 	class RunnerResult
 	{
-		/** @var string */
-		private $command;
+        private string $command;
 
-		/** @var int */
-		private $exitCode;
+        private int $exitCode;
 
 		/** @var string[] */
 		private $output;
@@ -19,43 +17,32 @@
 
 
 		/**
-		 * @param  string $command
-		 * @param  int $exitCode
-		 * @param  string[] $output
+         * @param  string[] $output
 		 * @param  string[] $errorOutput
 		 */
-		public function __construct($command, $exitCode, array $output, array $errorOutput)
+		public function __construct(string $command, int $exitCode, array $output, array $errorOutput)
 		{
-			$this->command = (string) $command;
-			$this->exitCode = (int) $exitCode;
+			$this->command = $command;
+			$this->exitCode = $exitCode;
 			$this->output = $output;
 			$this->errorOutput = $errorOutput;
 		}
 
 
-		/**
-		 * @return bool
-		 */
-		public function isOk()
-		{
+        public function isOk(): bool
+        {
 			return $this->exitCode === 0;
 		}
 
 
-		/**
-		 * @return string
-		 */
-		public function getCommand()
-		{
+        public function getCommand(): string
+        {
 			return $this->command;
 		}
 
 
-		/**
-		 * @return int
-		 */
-		public function getExitCode()
-		{
+        public function getExitCode(): int
+        {
 			return $this->exitCode;
 		}
 
@@ -78,21 +65,15 @@
 		}
 
 
-		/**
-		 * @return string|NULL
-		 */
-		public function getOutputLastLine()
-		{
+        public function getOutputLastLine(): ?string
+        {
 			$lastLine = array_last_value($this->output);
 			return is_string($lastLine) ? $lastLine : NULL;
 		}
 
 
-		/**
-		 * @return bool
-		 */
-		public function hasOutput()
-		{
+        public function hasOutput(): bool
+        {
 			return !empty($this->output);
 		}
 
@@ -106,20 +87,14 @@
 		}
 
 
-		/**
-		 * @return bool
-		 */
-		public function hasErrorOutput()
-		{
+        public function hasErrorOutput(): bool
+        {
 			return !empty($this->errorOutput);
 		}
 
 
-		/**
-		 * @return string
-		 */
-		public function toText()
-		{
+        public function toText(): string
+        {
 			return '$ ' . $this->getCommand() . "\n\n"
 				. "---- STDOUT: \n\n"
 				. implode("\n", $this->getOutput()) . "\n\n"

@@ -1,6 +1,6 @@
 <?php
 
-	namespace CzProject\GitPhp;
+	namespace pvpender\GitPhp;
 
 
 	class CommandProcessor
@@ -9,14 +9,13 @@
 		const MODE_WINDOWS = 1;
 		const MODE_NON_WINDOWS = 2;
 
-		/** @var bool */
-		private $isWindows;
+        private bool $isWindows;
 
 
-		/**
-		 * @param int $mode
-		 */
-		public function __construct($mode = self::MODE_DETECT)
+        /**
+         * @throws InvalidArgumentException
+         */
+		public function __construct(int $mode = self::MODE_DETECT)
 		{
 			if ($mode === self::MODE_NON_WINDOWS) {
 				$this->isWindows = FALSE;
@@ -33,14 +32,13 @@
 		}
 
 
-		/**
-		 * @param  string $app
-		 * @param  array<mixed> $args
-		 * @param  array<string, scalar>|NULL $env
-		 * @return string
-		 */
-		public function process($app, array $args, array $env = NULL)
-		{
+        /**
+         * @param  mixed[] $args
+         * @param  ?tuple(string, string) $env
+         * @throws InvalidStateException
+         */
+		public function process(string $app, array $args, array $env = NULL): string
+        {
 			$cmd = [];
 
 			foreach ($args as $arg) {
@@ -63,7 +61,8 @@
 							continue;
 
 						} elseif (!is_scalar($value)) {
-							throw new InvalidStateException('Unknow option value type ' . (is_object($value) ? get_class($value) : gettype($value)) . '.');
+							throw new InvalidStateException('Unknow option value type ' . (is_object($value) ?
+                                    get_class($value) : gettype($value)) . '.');
 						}
 
 						$cmd[] = $_c . $this->escapeArgument((string) $value);
@@ -79,7 +78,8 @@
 					$cmd[] = $arg->toString();
 
 				} else {
-					throw new InvalidStateException('Unknow argument type ' . (is_object($arg) ? get_class($arg) : gettype($arg)) . '.');
+					throw new InvalidStateException('Unknow argument type ' . (is_object($arg) ?
+                            get_class($arg) : gettype($arg)) . '.');
 				}
 			}
 
@@ -100,12 +100,8 @@
 		}
 
 
-		/**
-		 * @param  string $value
-		 * @return string
-		 */
-		private function escapeArgument($value)
-		{
+        private function escapeArgument(string $value): string
+        {
 			// inspired by Nette Tester
 			if (preg_match('#^[a-z0-9._-]+\z#i', $value)) {
 				return $value;

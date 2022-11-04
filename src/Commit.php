@@ -1,56 +1,39 @@
 <?php
 
-	namespace CzProject\GitPhp;
+	namespace pvpender\GitPhp;
 
 
 	class Commit
 	{
-		/** @var CommitId */
-		private $id;
+        private CommitId $id;
 
-		/** @var string */
-		private $subject;
+        private string $subject;
 
-		/** @var string|NULL */
-		private $body;
+        private ?string $body;
 
-		/** @var string */
-		private $authorEmail;
+        private string $authorEmail;
 
-		/** @var string|NULL */
-		private $authorName;
+        private ?string $authorName;
 
-		/** @var \DateTimeImmutable */
-		private $authorDate;
+        private \DateTimeImmutable $authorDate;
 
-		/** @var string */
-		private $committerEmail;
+        private string $committerEmail;
 
-		/** @var string|NULL */
-		private $committerName;
+        private ?string $committerName;
 
-		/** @var \DateTimeImmutable */
-		private $committerDate;
+        private \DateTimeImmutable $committerDate;
 
 
-		/**
-		 * @param string $subject
-		 * @param string|NULL $body
-		 * @param string $authorEmail
-		 * @param string|NULL $authorName
-		 * @param string $committerEmail
-		 * @param string|NULL $committerName
-		 */
-		public function __construct(
-			CommitId $id,
-			$subject,
-			$body,
-			$authorEmail,
-			$authorName,
-			\DateTimeImmutable $authorDate,
-			$committerEmail,
-			$committerName,
-			\DateTimeImmutable $committerDate
+        public function __construct(
+            CommitId           $id,
+            string             $subject,
+            ?string            $body,
+            string             $authorEmail,
+            ?string            $authorName,
+            \DateTimeImmutable $authorDate,
+            string             $committerEmail,
+            ?string            $committerName,
+            \DateTimeImmutable $committerDate
 		)
 		{
 			$this->id = $id;
@@ -65,93 +48,65 @@
 		}
 
 
-		/**
-		 * @return CommitId
-		 */
-		public function getId()
-		{
+        public function getId(): CommitId
+        {
 			return $this->id;
 		}
 
 
-		/**
-		 * @return string
-		 */
-		public function getSubject()
-		{
+        public function getSubject(): string
+        {
 			return $this->subject;
 		}
 
 
-		/**
-		 * @return string|NULL
-		 */
-		public function getBody()
-		{
+        public function getBody(): ?string
+        {
 			return $this->body;
 		}
 
 
-		/**
-		 * @return string|NULL
-		 */
-		public function getAuthorName()
-		{
+        public function getAuthorName(): ?string
+        {
 			return $this->authorName;
 		}
 
 
-		/**
-		 * @return string
-		 */
-		public function getAuthorEmail()
-		{
+        public function getAuthorEmail(): string
+        {
 			return $this->authorEmail;
 		}
 
 
-		/**
-		 * @return \DateTimeImmutable
-		 */
-		public function getAuthorDate()
-		{
+        public function getAuthorDate(): \DateTimeImmutable
+        {
 			return $this->authorDate;
 		}
 
 
-		/**
-		 * @return string|NULL
-		 */
-		public function getCommitterName()
-		{
+        public function getCommitterName(): ?string
+        {
 			return $this->committerName;
 		}
 
 
-		/**
-		 * @return string
-		 */
-		public function getCommitterEmail()
-		{
+        public function getCommitterEmail(): string
+        {
 			return $this->committerEmail;
 		}
 
 
-		/**
-		 * @return \DateTimeImmutable
-		 */
-		public function getCommitterDate()
-		{
+        public function getCommitterDate(): \DateTimeImmutable
+        {
 			return $this->committerDate;
 		}
 
 
 		/**
 		 * Alias for getAuthorDate()
-		 * @return \DateTimeImmutable
-		 */
-		public function getDate()
-		{
+         */
+		public function getDate(): \DateTimeImmutable
+        {
 			return $this->authorDate;
 		}
 	}
