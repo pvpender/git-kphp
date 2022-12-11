@@ -8,6 +8,9 @@ use pvpender\GitPhp\Runners\MemoryRunner;
 use pvpender\GitPhp\Git;
 
 class GitTest extends TestCase{
+
+    private string $TESTPATH = "./git-kphp-pvpender-test-repo/";
+
     public function testCommitID(){
         $commitId = new CommitId('734713bc047d87bf7eac9674765ae793478c50d3');
         $this->assertSame('734713bc047d87bf7eac9674765ae793478c50d3', (string) $commitId);
@@ -29,13 +32,24 @@ class GitTest extends TestCase{
      * @throws GitException
      */
     public function testGitRepoDir(){
-        /*$runner = new MemoryRunner(__DIR__);
+        \pvpender\GitPhp\Systemc::load();
+        $runner = new MemoryRunner(__DIR__);
         $git = new Git($runner);
         $repoA = $git->open(__DIR__);
-        $this.self::assertSame(__DIR__, $repoA->getRepositoryPath());
+        $this->assertSame(__DIR__, $repoA->getRepositoryPath());
         $repoA = $git->open(__DIR__ . '/.git');
-        $this.self::assertSame(__DIR__, $repoA->getRepositoryPath());
+        $this->assertSame(__DIR__, $repoA->getRepositoryPath());
         $repoA = $git->open(__DIR__ . '/.git/');
-        $this.self::assertSame(__DIR__, $repoA->getRepositoryPath());*/
+        $this->assertSame(__DIR__, $repoA->getRepositoryPath());
     }
+
+    public function testRepoInit(){
+        \pvpender\GitPhp\Systemc::load();
+        $runner = new \pvpender\GitPhp\Runners\CliRunner(__DIR__);
+        $git = new Git($runner);
+        $s = new \pvpender\GitPhp\Systemc();
+        $s->system("mkdir ".$this->TESTPATH);
+        $repo = $git->init(__DIR__.$this->TESTPATH);
+    }
+
 }

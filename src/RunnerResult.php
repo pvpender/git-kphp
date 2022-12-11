@@ -1,105 +1,105 @@
 <?php
 
-	namespace pvpender\GitPhp;
+namespace pvpender\GitPhp;
 
 
-	class RunnerResult
-	{
-        private string $command;
+class RunnerResult
+{
+    private string $command;
 
-        private int $exitCode;
+    private int $exitCode;
 
-		/** @var string[] */
-		private $output;
+    /** @var string[] */
+    private $output;
 
-		/** @var string[] */
-		private $errorOutput;
-
-
-		/**
-         * @param  string[] $output
-		 * @param  string[] $errorOutput
-		 */
-		public function __construct(string $command, int $exitCode, array $output, array $errorOutput)
-		{
-			$this->command = $command;
-			$this->exitCode = $exitCode;
-			$this->output = $output;
-			$this->errorOutput = $errorOutput;
-		}
+    /** @var string[] */
+    private $errorOutput;
 
 
-        public function isOk(): bool
-        {
-			return $this->exitCode === 0;
-		}
+    /**
+     * @param  string[] $output
+     * @param  string[] $errorOutput
+     */
+    public function __construct(string $command, int $exitCode, array $output, array $errorOutput)
+    {
+        $this->command = $command;
+        $this->exitCode = $exitCode;
+        $this->output = $output;
+        $this->errorOutput = $errorOutput;
+    }
 
 
-        public function getCommand(): string
-        {
-			return $this->command;
-		}
+    public function isOk(): bool
+    {
+        return $this->exitCode === 0;
+    }
 
 
-        public function getExitCode(): int
-        {
-			return $this->exitCode;
-		}
+    public function getCommand(): string
+    {
+        return $this->command;
+    }
 
 
-		/**
-		 * @return string[]
-		 */
-		public function getOutput()
-		{
-			return $this->output;
-		}
+    public function getExitCode(): int
+    {
+        return $this->exitCode;
+    }
 
 
-		/**
-		 * @return string
-		 */
-		public function getOutputAsString()
-		{
-			return implode("\n", $this->output);
-		}
+    /**
+     * @return string[]
+     */
+    public function getOutput()
+    {
+        return $this->output;
+    }
 
 
-        public function getOutputLastLine(): ?string
-        {
-			$lastLine = array_last_value($this->output);
-			return is_string($lastLine) ? $lastLine : NULL;
-		}
+    /**
+     * @return string
+     */
+    public function getOutputAsString()
+    {
+        return implode("\n", $this->output);
+    }
 
 
-        public function hasOutput(): bool
-        {
-			return !empty($this->output);
-		}
+    public function getOutputLastLine(): ?string
+    {
+        $lastLine = array_last_value($this->output);
+        return is_string($lastLine) ? $lastLine : NULL;
+    }
 
 
-		/**
-		 * @return string[]
-		 */
-		public function getErrorOutput()
-		{
-			return $this->errorOutput;
-		}
+    public function hasOutput(): bool
+    {
+        return !empty($this->output);
+    }
 
 
-        public function hasErrorOutput(): bool
-        {
-			return !empty($this->errorOutput);
-		}
+    /**
+     * @return string[]
+     */
+    public function getErrorOutput()
+    {
+        return $this->errorOutput;
+    }
 
 
-        public function toText(): string
-        {
-			return '$ ' . $this->getCommand() . "\n\n"
-				. "---- STDOUT: \n\n"
-				. implode("\n", $this->getOutput()) . "\n\n"
-				. "---- STDERR: \n\n"
-				. implode("\n", $this->getErrorOutput()) . "\n\n"
-				. '=> ' . $this->getExitCode() . "\n\n";
-		}
-	}
+    public function hasErrorOutput(): bool
+    {
+        return !empty($this->errorOutput);
+    }
+
+
+    public function toText(): string
+    {
+        return '$ ' . $this->getCommand() . "\n\n"
+            . "---- STDOUT: \n\n"
+            . implode("\n", $this->getOutput()) . "\n\n"
+            . "---- STDERR: \n\n"
+            . implode("\n", $this->getErrorOutput()) . "\n\n"
+            . '=> ' . $this->getExitCode() . "\n\n";
+    }
+}

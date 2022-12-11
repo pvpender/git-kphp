@@ -3,7 +3,7 @@
 	"type": "library",
 	"description": "Library for work with Git repository in KPHP.",
 	"keywords": ["git"],
-	"license": "BSD-3-Clause",
+	"license": "MIT",
 	"authors": [
 		{
 			"name": "pvpender",

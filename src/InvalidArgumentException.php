@@ -1,11 +1,11 @@
 <?php
 
-    namespace pvpender\GitPhp;
+namespace pvpender\GitPhp;
 
 
-    class InvalidArgumentException extends \Exception
-	{
+class InvalidArgumentException extends \Exception
+{
 
-	}
+}
 
 

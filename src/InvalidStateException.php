@@ -1,8 +1,8 @@
 <?php
 
-    namespace pvpender\GitPhp;
+namespace pvpender\GitPhp;
 
-    class InvalidStateException extends \Exception
-    {
+class InvalidStateException extends \Exception
+{
 
-    }
+}

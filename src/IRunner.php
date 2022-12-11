@@ -1,16 +1,16 @@
 <?php
 
-	namespace pvpender\GitPhp;
+namespace pvpender\GitPhp;
 
 
-	interface IRunner
-	{
-		/**
-         * @param  mixed[] $args
-         * @param ?tuple(string, string) $env
-         */
-		function run(string $cwd, array $args, array $env = NULL): RunnerResult;
+interface IRunner
+{
+    /**
+     * @param  string[] $args
+     * @param ?string[] $env
+     */
+    function run(string $cwd, array $args, $env = NULL): RunnerResult;
 
 
-        function getCwd(): string;
-	}
+    function getCwd(): string;
+}

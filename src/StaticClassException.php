@@ -3,7 +3,7 @@
 namespace pvpender\GitPhp;
 
 
-	class StaticClassException extends \Exception
-	{
+class StaticClassException extends \Exception
+{
 
-	}
+}
