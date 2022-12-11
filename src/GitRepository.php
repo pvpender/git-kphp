@@ -360,7 +360,7 @@ class GitRepository
      * @throws InvalidStateException
      * @throws GitException
      */
-    public function commit(string $message, $options): GitRepository
+    public function commit(string $message, $options = NULL): GitRepository
     {
         $this->run(['commit', implode(" ", $options), '-m',  $message]);
         //$this->run('commit', $options);
@@ -504,7 +504,7 @@ class GitRepository
 
     /**
      * Pull changes from a remote
-     * @param  string|string[]|null $remote
+     * @param  string|null $remote
      * @param  ?string[] $options
      * @throws GitException
      * @throws InvalidStateException
@@ -518,7 +518,7 @@ class GitRepository
 
     /**
      * Push changes to a remote
-     * @param  string|string[]|null $remote
+     * @param  string|null $remote
      * @param  ?string[] $options
      * @throws GitException
      * @throws InvalidStateException
@@ -526,14 +526,14 @@ class GitRepository
     public function push($remote = NULL, $options = NULL): GitRepository
     {
         //$this->run(['push', $s, '--end-of-options', $remote]);
-        $this->run(['push', implode(" ", $options), '--end-of-options']);
+        $this->run(['push', implode(" ", $options), '--end-of-options',  $remote]);
         return $this;
     }
 
 
     /**
      * Run fetch command to get latest branches
-     * @param  string|string[]|null $remote
+     * @param  string|null $remote
      * @param  ?string[] $options
      * @throws GitException
      * @throws InvalidStateException
@@ -547,7 +547,7 @@ class GitRepository
 
     /**
      * Adds new remote repository
-     * @param  ?mixed[] $options
+     * @param  ?string[] $options
      * @throws GitException
      * @throws InvalidStateException
      */
