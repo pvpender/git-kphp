@@ -1,6 +1,6 @@
 <?php
 
-namespace pvpender\GitPhp;
+namespace pvpender\GitKphp;
 
 
 class Commit

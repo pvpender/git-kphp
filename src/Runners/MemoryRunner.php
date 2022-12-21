@@ -1,12 +1,12 @@
 <?php
 
-namespace pvpender\GitPhp\Runners;
+namespace pvpender\GitKphp\Runners;
 
-use pvpender\GitPhp\CommandProcessor;
-use pvpender\GitPhp\GitException;
-use pvpender\GitPhp\InvalidStateException;
-use pvpender\GitPhp\IRunner;
-use pvpender\GitPhp\RunnerResult;
+use pvpender\GitKphp\CommandProcessor;
+use pvpender\GitKphp\GitException;
+use pvpender\GitKphp\InvalidStateException;
+use pvpender\GitKphp\IRunner;
+use pvpender\GitKphp\RunnerResult;
 
 
 class MemoryRunner implements IRunner

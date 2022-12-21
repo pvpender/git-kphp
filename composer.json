@@ -15,7 +15,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"pvpender\\GitPhp\\": "src/"}
+			"pvpender\\GitKphp\\": "src/"}
 	},
 	"require-dev": {
 		"vkcom/ktest-script": "^0.7.5",

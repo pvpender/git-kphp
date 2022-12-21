@@ -1,5 +1,5 @@
 <?php
-namespace pvpender\GitPhp;
+namespace pvpender\GitKphp;
 class Systemc{
     public static function load(){
         \FFI::load(__DIR__ . "/c.h");

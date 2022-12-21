@@ -1,11 +1,11 @@
 <?php
 
-use pvpender\GitPhp\CommitId;
+use pvpender\GitKphp\CommitId;
 use PHPUnit\Framework\TestCase;
-use pvpender\GitPhp\GitException;
-use pvpender\GitPhp\Helpers;
-use pvpender\GitPhp\Runners\MemoryRunner;
-use pvpender\GitPhp\Git;
+use pvpender\GitKphp\GitException;
+use pvpender\GitKphp\Helpers;
+use pvpender\GitKphp\Runners\MemoryRunner;
+use pvpender\GitKphp\Git;
 
 class GitTest extends TestCase{
 
@@ -32,7 +32,7 @@ class GitTest extends TestCase{
      * @throws GitException
      */
     public function testGitRepoDir(){
-        \pvpender\GitPhp\Systemc::load();
+        \pvpender\GitKphp\Systemc::load();
         $runner = new MemoryRunner(__DIR__);
         $git = new Git($runner);
         $repoA = $git->open(__DIR__);
@@ -44,10 +44,10 @@ class GitTest extends TestCase{
     }
 
     public function testRepoInit(){
-        \pvpender\GitPhp\Systemc::load();
-        $runner = new \pvpender\GitPhp\Runners\CliRunner(__DIR__);
+        \pvpender\GitKphp\Systemc::load();
+        $runner = new \pvpender\GitKphp\Runners\CliRunner(__DIR__);
         $git = new Git($runner);
-        $s = new \pvpender\GitPhp\Systemc();
+        $s = new \pvpender\GitKphp\Systemc();
         $s->system("mkdir ".$this->TESTPATH);
         $repo = $git->init(__DIR__.$this->TESTPATH);
     }
