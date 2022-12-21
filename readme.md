@@ -12,7 +12,7 @@ FFI Library for work with Git repository in KPHP.
 composer require pvpender/git-kphp
 ```
 
-Library requires PHP 7.4, latest version of [KPHP](https://github.com/VKCOM/kphp) and `git` client (path to Git must be
+Library requires PHP 7.4, the latest version of [KPHP](https://github.com/VKCOM/kphp) and `git` client (path to Git must be
 in system variable `PATH`). Also, if you want use commands, which requires to log in git, you should tune authentication 
 without password using private/public keys or setting `-global` parameter.
 
@@ -22,11 +22,11 @@ Before proc_open will not support, this library use FFI, that can be very unsafe
 
 Before starting
 ---
-This is FFI lib and it means that you should preload `.c` files before starting working the library.
+This is FFI lib, and it means that you should preload `.c` files before starting working the library.
 Don't worry everything already in `Systemc` class, you only should write:
 
 ```php
-use pvpender\GitPhp\Systemc;
+use pvpender\GitKphp\Systemc;
 Systemc::load();
 ```
 At the top of your `main.php` file. 
@@ -34,11 +34,11 @@ At the top of your `main.php` file.
 Using
 ---
 ```php
-use pvpender\GitPhp\Git;
-use pvpender\GitPhp\Systemc;
+use pvpender\GitKphp\Git;
+use pvpender\GitKphp\Systemc;
 
 Systemc::load();
-$git = new pvpender\GitPhp\Git;
+$git = new pvpender\GitKphp\Git;
 // create repo object
 $repo = $git->open(__DIR__);
 
