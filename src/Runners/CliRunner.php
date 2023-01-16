@@ -97,7 +97,7 @@ class CliRunner implements IRunner
         $cwd = __DIR__;
 
         if (!is_string($cwd)) {
-            throw new \pvpender\GitPhp\InvalidStateException('Getting of CWD failed.');
+            throw new \pvpender\GitKphp\InvalidStateException('Getting of CWD failed.');
         }
 
         return $cwd;
