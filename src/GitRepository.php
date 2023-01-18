@@ -50,9 +50,10 @@ class GitRepository
     public function createTag(string $name, $options = NULL): GitRepository
     {
         if ($options === NULL){
-            $options = [];
+            $this->run(['tag', '--end-of-options', $name]);
+        } else {
+            $this->run(['tag', implode(" ", $options), '--end-of-options', $name]);
         }
-        $this->run(['tag', implode(" ", $options), '--end-of-options', $name]);
         return $this;
     }
 
@@ -110,7 +111,11 @@ class GitRepository
      */
     public function merge(string $branch, $options = NULL): GitRepository
     {
-        $this->run(['merge', $options, '--end-of-options', $branch]);
+        if ($options === NULL){
+            $this->run(['merge', '--end-of-options', $branch]);
+        } else {
+            $this->run(['merge', implode(" ", $options), '--end-of-options', $branch]);
+        }
         return $this;
     }
 
@@ -360,9 +365,13 @@ class GitRepository
      * @throws InvalidStateException
      * @throws GitException
      */
-    public function commit(string $message, $options = NULL): GitRepository
+    public function commit(string $message, array $options = NULL): GitRepository
     {
-        $this->run(['commit', implode(" ", $options), '-m',  $message]);
+        if ($options === NULL){
+            $this->run(['commit', '-m',  $message]);
+        } else {
+            $this->run(['commit', implode(" ", $options), '-m', $message]);
+        }
         //$this->run('commit', $options);
         return $this;
     }
@@ -511,7 +520,11 @@ class GitRepository
      */
     public function pull($remote = NULL, $options = NULL): GitRepository
     {
-        $this->run(['pull', implode(" ", $options), '--end-of-options', $remote]);
+        if ($options === NULL){
+            $this->run(['pull', '--end-of-options', $remote]);
+        } else {
+            $this->run(['pull', implode(" ", $options), '--end-of-options', $remote]);
+        }
         return $this;
     }
 
@@ -526,7 +539,11 @@ class GitRepository
     public function push($remote = NULL, $options = NULL): GitRepository
     {
         //$this->run(['push', $s, '--end-of-options', $remote]);
-        $this->run(['push', implode(" ", $options), '--end-of-options',  $remote]);
+        if ($options === NULL){
+            $this->run(['push', '--end-of-options',  $remote]);
+        } else {
+            $this->run(['push', implode(" ", $options), '--end-of-options', $remote]);
+        }
         return $this;
     }
 
@@ -540,7 +557,11 @@ class GitRepository
      */
     public function fetch($remote = NULL, $options = NULL): GitRepository
     {
-        $this->run(['fetch', implode(" ", $options), '--end-of-options', $remote]);
+        if ($options === NULL){
+            $this->run(['fetch', '--end-of-options', $remote]);
+        } else{
+            $this->run(['fetch', implode(" ", $options), '--end-of-options', $remote]);
+        }
         return $this;
     }
 
@@ -553,7 +574,11 @@ class GitRepository
      */
     public function addRemote(string $name, string $url, $options = NULL): GitRepository
     {
-        $this->run(['remote', 'add', implode(" ", $options), '--end-of-options', $name, $url]);
+        if ($options === NULL){
+            $this->run(['remote', 'add', '--end-of-options', $name, $url]);
+        } else {
+            $this->run(['remote', 'add', implode(" ", $options), '--end-of-options', $name, $url]);
+        }
         return $this;
     }
 
@@ -590,7 +615,11 @@ class GitRepository
      */
     public function setRemoteUrl(string $name, string $url, $options = NULL): GitRepository
     {
-        $this->run(['remote', 'set-url', implode(" ", $options), '--end-of-options', $name, $url]);
+        if ($options === NULL){
+            $this->run(['remote', 'set-url', '--end-of-options', $name, $url]);
+        } else {
+            $this->run(['remote', 'set-url', implode(" ", $options), '--end-of-options', $name, $url]);
+        }
         return $this;
     }
 
@@ -601,7 +630,7 @@ class GitRepository
      * @throws GitException
      * @throws InvalidStateException
      */
-    public function execute($cmd)
+    private function execute($cmd)
     {
         $result = $this->run($cmd);
         return $result->getOutput();

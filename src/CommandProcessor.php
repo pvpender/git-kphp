@@ -104,13 +104,14 @@ class CommandProcessor
     {
         // inspired by Nette Tester
         if (preg_match('#^[a-z0-9._-]+\z#i', $value)) {
-            return $value;
+            return escapeshellarg($value);
         }
 
         if ($this->isWindows) {
-            return '"' . str_replace('"', '""', $value) . '"';
+            return escapeshellarg('"' . str_replace('"', '""', $value) . '"');
         }
 
-        return $value; // dangera
+        return escapeshellarg($value); // dangera
+
     }
 }

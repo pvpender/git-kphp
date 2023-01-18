@@ -49,7 +49,9 @@ class CliRunner implements IRunner
         /*$process = proc_open($command, $descriptorspec, $pipes, $cwd, $env, [
             'bypass_shell' => TRUE,
         ]);*/
+
         $this->ffi->system("cd $cwd");
+        var_dump($command);
         $this->ffi->system("$command");
 
         /*if (!$process) {

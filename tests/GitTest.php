@@ -25,7 +25,7 @@ class GitTest extends TestCase{
         $this->assertSame('foo', Helpers::extractRepositoryNameFromUrl('host.xz:foo/.git'));
         $this->assertSame('repo', Helpers::extractRepositoryNameFromUrl('file:///path/to/repo.git/'));
         $this->assertSame('git-kphp', Helpers::extractRepositoryNameFromUrl('https://github.com/pvpender/git-kphp.git'));
-        $this->assertSame('git-php', Helpers::extractRepositoryNameFromUrl('git@github.com:czproject/git-php.git'));
+        $this->assertSame('git-php', Helpers::extractRepositoryNameFromUrl('git@github.com:pvpender/git-kphp.git'));
     }
 
     /**
