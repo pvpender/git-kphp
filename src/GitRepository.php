@@ -521,9 +521,9 @@ class GitRepository
     public function pull($remote = NULL, $options = NULL): GitRepository
     {
         if ($options === NULL){
-            $this->run(['pull', '--end-of-options', $remote]);
+            $this->run(['pull', '--end-of-options', empty($remote)?"":(string)$remote]);
         } else {
-            $this->run(['pull', implode(" ", $options), '--end-of-options', $remote]);
+            $this->run(['pull', implode(" ", $options), '--end-of-options', empty($remote)?"":(string)$remote]);
         }
         return $this;
     }
@@ -540,9 +540,9 @@ class GitRepository
     {
         //$this->run(['push', $s, '--end-of-options', $remote]);
         if ($options === NULL){
-            $this->run(['push', '--end-of-options',  $remote]);
+            $this->run(['push', '--end-of-options',  empty($remote)?"":(string)$remote]);
         } else {
-            $this->run(['push', implode(" ", $options), '--end-of-options', $remote]);
+            $this->run(['push', implode(" ", $options), '--end-of-options', empty($remote)?"":(string)$remote]);
         }
         return $this;
     }
@@ -558,9 +558,9 @@ class GitRepository
     public function fetch($remote = NULL, $options = NULL): GitRepository
     {
         if ($options === NULL){
-            $this->run(['fetch', '--end-of-options', $remote]);
+            $this->run(['fetch', '--end-of-options', empty($remote)?"":(string)$remote]);
         } else{
-            $this->run(['fetch', implode(" ", $options), '--end-of-options', $remote]);
+            $this->run(['fetch', implode(" ", $options), '--end-of-options', empty($remote)?"":(string)$remote]);
         }
         return $this;
     }

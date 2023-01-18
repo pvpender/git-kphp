@@ -51,7 +51,6 @@ class CliRunner implements IRunner
         ]);*/
 
         $this->ffi->system("cd $cwd");
-        var_dump($command);
         $this->ffi->system("$command");
 
         /*if (!$process) {
