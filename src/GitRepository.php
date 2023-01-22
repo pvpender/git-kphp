@@ -220,7 +220,6 @@ class GitRepository
                 $this->repository."/.git/refs/remotes/$folder"), 2);
             foreach ($files_without_directory as $file){
                 array_push($files, "remotes/$folder/"."$file");
-
             }
         }
         return $files;

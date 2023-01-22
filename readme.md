@@ -13,7 +13,7 @@ composer require pvpender/git-kphp
 ```
 
 Library requires PHP 7.4, the latest version of [KPHP](https://github.com/VKCOM/kphp) and `git` client (path to Git must be
-in system variable `PATH`). Also, if you want use commands, which requires to log in git, you should tune authentication 
+in system variable `PATH`). Also, if you want use commands, which requires to log in git, you should tune authentication
 without password using private/public keys or setting `-global` parameter.
 
 **Warning!** This is FFI lib. That's mean that some C cod using to normal working.
@@ -29,7 +29,7 @@ Don't worry everything already in `Systemc` class, you only should write:
 use pvpender\GitKphp\Systemc;
 Systemc::load();
 ```
-At the top of your `main.php` file. 
+At the top of your `main.php` file.
 
 Using
 ---
@@ -41,6 +41,9 @@ Systemc::load();
 $git = new pvpender\GitKphp\Git;
 // create repo object
 $repo = $git->open(__DIR__);
+
+// or you can just clone repo
+// $repo = $git->cloneRepository('https://github.com/user/repo');
 
 // create a new file in repo
 $filename = $repo->getRepositoryPath() . '/newfile.txt';
@@ -68,10 +71,10 @@ $repo = $git->init('/path/to/repo-directory', [
 Cloning of repository
 ---------------------
 ``` php
-// Cloning of repository into subdirectory 'git-php' in current working directory
-$repo = $git->cloneRepository('https://github.com/czproject/git-php.git');
+// Cloning of repository into subdirectory 'git-kphp' in current working directory
+$repo = $git->cloneRepository('https://github.com/pvpender/git-kphp.git');
 // Cloning of repository into own directory
-$repo = $git->cloneRepository('https://github.com/czproject/git-php.git', '/path/to/my/subdir');
+$repo = $git->cloneRepository('https://github.com/pvpender/git-kphp.git', '/path/to/my/subdir');
 ```
 
 
@@ -191,19 +194,6 @@ $repo->removeRemote('origin');
 // changes remote URL
 $repo->setRemoteUrl('remote-name', 'new-repository-url');
 $repo->setRemoteUrl('upstream', 'https://github.com/pvpender/git-kphp.git');
-```
-
-Other commands
---------------
-
-For running other commands you can use `execute` method:
-**Warning!** In current version you **CAN'T** get some outputs from console.
-
-```php
-$output = $repo->execute('command');
-$output = $repo->execute('command', 'with', 'parameters');
-// example:
-$repo->execute('remote', 'set-branches', $originName, $branches);
 ```
 
 Based on https://github.com/czproject/git-php
